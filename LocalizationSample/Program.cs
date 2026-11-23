@@ -4,6 +4,7 @@ using System.Text.Json;
 using DbLocalizationProvider;
 using DbLocalizationProvider.AspNetCore;
 using LocalizationSample;
+using LocalizationSample.Resources;
 using Microsoft.Extensions.DependencyInjection;
 
 // =====================================================================================

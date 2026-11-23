@@ -16,17 +16,18 @@ dotnet run --project LocalizationSample   # prints translated strings and lang m
 Expected build output includes one intentional warning:
 
 ```
-LocalizationSample/CheckoutResources.cs(23,26): warning LOC001: 'CheckoutResources.EmptyCartMessage' is missing a translation for culture 'sv'
+LocalizationSample/Resources/CheckoutResources.cs(23,26): warning LOC001: 'CheckoutResources.EmptyCartMessage' is missing a translation for culture 'sv'
 ```
 
 ## Layout
 
 ```
-LocalizationSample/                    console app (net10.0), everything in one folder
+LocalizationSample/                    console app (net10.0)
   Program.cs                           setup (AddDbLocalizationProvider + sync) and usage
   LocalizationProviderExtensions.cs    TranslateExtended<T>()
-  GlobalResources.cs                   [LocalizedResource] classes
-  CheckoutResources.cs
+  Resources/                           [LocalizedResource] classes
+    GlobalResources.cs
+    CheckoutResources.cs
   CartLangModel.cs                     [LocalizedModel] lang models
   ModalLangModel.cs
   InMemoryResourceRepository.cs        in-memory storage (only needed because we skip SQL Server)
@@ -75,7 +76,7 @@ public class GlobalResources
 }
 ```
 
-- The key is `<Namespace>.<Class>.<Property>`, here `LocalizationSample.GlobalResources.Close`.
+- The key is `<Namespace>.<Class>.<Property>`, here `LocalizationSample.Resources.GlobalResources.Close`.
 - Use `static` properties so you can reference them in expressions: `provider.GetString(() => GlobalResources.Close)`.
 - Placeholders: `provider.GetString(() => CheckoutResources.FreeFreight, "250 kr")`.
 - Group resources by feature (`CheckoutResources`, `ProductResources`, ...) and keep one `GlobalResources` for shared words.

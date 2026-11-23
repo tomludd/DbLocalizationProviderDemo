@@ -1,4 +1,5 @@
 using DbLocalizationProvider.Abstractions;
+using LocalizationSample.Resources;
 
 namespace LocalizationSample;
 
