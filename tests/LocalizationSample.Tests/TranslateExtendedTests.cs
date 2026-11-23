@@ -8,7 +8,7 @@ namespace LocalizationSample.Tests;
 
 public class TranslateExtendedTests
 {
-    private static readonly Lazy<ILocalizationProvider> LazyProvider = new(LocalizationSetup.CreateProvider);
+    private static readonly Lazy<ILocalizationProvider> LazyProvider = new(Program.CreateProvider);
     private static ILocalizationProvider Provider => LazyProvider.Value;
 
     private static readonly CultureInfo Norwegian = new("no");

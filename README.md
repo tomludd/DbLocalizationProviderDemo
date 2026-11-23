@@ -25,12 +25,11 @@ src/LocalizationSample/Resources/CheckoutResources.cs(23,26): warning LOC001: 'C
 ```
 src/
   LocalizationSample/                  console app (net10.0)
-    LocalizationSetup.cs               AddDbLocalizationProvider + sync
     LocalizationProviderExtensions.cs  TranslateExtended<T>()
     Resources/                         [LocalizedResource] classes
     Models/                            [LocalizedModel] lang models
     Storage/                           in-memory IResourceRepository (only needed because we skip SQL Server)
-    Program.cs
+    Program.cs                         setup (AddDbLocalizationProvider + sync) and usage in one file
   LocalizationAnalyzers/               Roslyn analyzer LOC001 (netstandard2.0)
 tests/
   LocalizationSample.Tests/            xunit v3 tests
