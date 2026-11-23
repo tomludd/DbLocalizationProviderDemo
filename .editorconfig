@@ -1,0 +1,9 @@
+root = true
+
+[*.cs]
+# Cultures every [LocalizedResource] / [LocalizedModel] string property must have a [TranslationForCulture] for.
+# If omitted, the analyzer infers the set per class (any culture used by one property is required by all).
+localization_required_cultures = no, sv
+
+# Turn the warning into a build error if you want to block merges with missing translations
+# dotnet_diagnostic.LOC001.severity = error
