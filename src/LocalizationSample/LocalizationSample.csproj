@@ -10,7 +10,7 @@
     <!-- Core provider + DI registration (AddDbLocalizationProvider). No Admin UI, no CMS integration. -->
     <PackageReference Include="LocalizationProvider" Version="9.1.0" />
     <PackageReference Include="LocalizationProvider.AspNetCore" Version="9.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.15" />
   </ItemGroup>
 
   <ItemGroup>

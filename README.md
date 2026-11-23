@@ -162,8 +162,8 @@ If `localization_required_cultures` is not set, the analyzer works out the cultu
 property is required on every property in that class. That catches the common mistake of adding Norwegian and
 forgetting Swedish.
 
-The analyzer references Microsoft.CodeAnalysis 4.8 on purpose. A compiler can't load an analyzer built against a newer
-Roslyn than itself, and 4.8 loads in the .NET 8 SDK / VS 2022 17.8 and later. To share it across solutions, pack
+The analyzer references Microsoft.CodeAnalysis 5.0.0 on purpose. A compiler can't load an analyzer built against a
+newer Roslyn than itself, and 5.0.0 is the version in the first .NET 10 SDK. To share it across solutions, pack
 `LocalizationAnalyzers` as a NuGet package with the DLL under `analyzers/dotnet/cs/`.
 
 ## Upgrading from 8.x
