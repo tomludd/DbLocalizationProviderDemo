@@ -10,31 +10,31 @@ A small, runnable example of how to use [DbLocalizationProvider](https://github.
 - **A Roslyn analyzer** (`LOC001`) that warns at build time when a translation for a required culture is missing.
 
 ```bash
-dotnet run --project src/LocalizationSample   # prints translated strings and lang models
-dotnet test                                   # TranslateExtended + analyzer tests
+dotnet run --project LocalizationSample   # prints translated strings and lang models
 ```
 
 Expected build output includes one intentional warning:
 
 ```
-src/LocalizationSample/Resources/CheckoutResources.cs(23,26): warning LOC001: 'CheckoutResources.EmptyCartMessage' is missing a translation for culture 'sv'
+LocalizationSample/CheckoutResources.cs(23,26): warning LOC001: 'CheckoutResources.EmptyCartMessage' is missing a translation for culture 'sv'
 ```
 
 ## Layout
 
 ```
-src/
-  LocalizationSample/                  console app (net10.0)
-    LocalizationProviderExtensions.cs  TranslateExtended<T>()
-    Resources/                         [LocalizedResource] classes
-    Models/                            [LocalizedModel] lang models
-    Storage/                           in-memory IResourceRepository (only needed because we skip SQL Server)
-    Program.cs                         setup (AddDbLocalizationProvider + sync) and usage in one file
-  LocalizationAnalyzers/               Roslyn analyzer LOC001 (netstandard2.0)
-tests/
-  LocalizationSample.Tests/            xunit v3 tests
+LocalizationSample/                    console app (net10.0), everything in one folder
+  Program.cs                           setup (AddDbLocalizationProvider + sync) and usage
+  LocalizationProviderExtensions.cs    TranslateExtended<T>()
+  GlobalResources.cs                   [LocalizedResource] classes
+  CheckoutResources.cs
+  CartLangModel.cs                     [LocalizedModel] lang models
+  ModalLangModel.cs
+  InMemoryResourceRepository.cs        in-memory storage (only needed because we skip SQL Server)
+LocalizationAnalyzers/                 Roslyn analyzer LOC001 (netstandard2.0)
 .editorconfig                          analyzer configuration
 ```
+
+Requires the .NET 10 SDK or newer.
 
 ## 1. Setup
 
@@ -46,7 +46,7 @@ services.AddDbLocalizationProvider(ctx =>
 });
 
 // ASP.NET Core:  app.UseDbLocalizationProvider();
-// Console/tests: serviceProvider.UseDbLocalizationProvider();
+// Console app:  serviceProvider.UseDbLocalizationProvider();
 ```
 
 `UseDbLocalizationProvider()` scans assemblies for `[LocalizedResource]` and `[LocalizedModel]` and writes the
@@ -75,7 +75,7 @@ public class GlobalResources
 }
 ```
 
-- The key is `<Namespace>.<Class>.<Property>`, here `LocalizationSample.Resources.GlobalResources.Close`.
+- The key is `<Namespace>.<Class>.<Property>`, here `LocalizationSample.GlobalResources.Close`.
 - Use `static` properties so you can reference them in expressions: `provider.GetString(() => GlobalResources.Close)`.
 - Placeholders: `provider.GetString(() => CheckoutResources.FreeFreight, "250 kr")`.
 - Group resources by feature (`CheckoutResources`, `ProductResources`, ...) and keep one `GlobalResources` for shared words.
@@ -120,8 +120,8 @@ model has keys under its own type name, so it is not included:
 | Nested `[LocalizedModel]` property (e.g. `Modal`) | filled | **`null`** |
 | `[Display(Name)]` fallback | ✅ | ❌ |
 
-This is still the case in 9.1.0. The test `BuiltIn_Translate_does_not_fill_nested_lang_models` fails if a future
-version fixes it, which tells you `TranslateExtended` can be replaced. If your lang models never nest, the built-in
+This is still the case in 9.1.0. `Program.cs` prints both, so after a package upgrade you can see whether
+`Modal` is still `null`. If your lang models never nest, the built-in
 `Translate<T>()` is enough.
 
 How `TranslateExtended` resolves each property:

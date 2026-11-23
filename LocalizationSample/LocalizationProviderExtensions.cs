@@ -15,7 +15,7 @@ public static class LocalizationProviderExtensions
     /// <remarks>
     /// Why not the built-in <see cref="ILocalizationProvider.Translate{T}()"/>? It only reads resource keys that start
     /// with typeof(T).FullName, so nested [LocalizedModel] properties come back null. It also has no [Display] fallback.
-    /// Still the case in LocalizationProvider 9.1.0 – covered by a test in tests/LocalizationSample.Tests.
+    /// Still the case in LocalizationProvider 9.1.0 – Program.cs prints both for comparison.
     /// </remarks>
     public static T TranslateExtended<T>(this ILocalizationProvider provider, CultureInfo culture = null) where T : class, new()
         => (T)TranslateExtended(provider, typeof(T), culture);

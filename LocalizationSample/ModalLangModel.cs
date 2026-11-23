@@ -1,7 +1,6 @@
 using DbLocalizationProvider.Abstractions;
-using LocalizationSample.Resources;
 
-namespace LocalizationSample.Models;
+namespace LocalizationSample;
 
 /// <summary>
 /// A small "lang model" for a reusable component. Can be nested inside other lang models.

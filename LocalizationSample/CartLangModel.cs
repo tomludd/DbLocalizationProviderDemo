@@ -1,7 +1,6 @@
 using DbLocalizationProvider.Abstractions;
-using LocalizationSample.Resources;
 
-namespace LocalizationSample.Models;
+namespace LocalizationSample;
 
 /// <summary>
 /// "Lang model": a flat bag of strings handed to a frontend component (e.g. serialized to JSON).

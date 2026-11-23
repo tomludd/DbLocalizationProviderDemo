@@ -1,6 +1,6 @@
 using DbLocalizationProvider.Abstractions;
 
-namespace LocalizationSample.Resources;
+namespace LocalizationSample;
 
 /// <summary>
 /// Shared strings reused across many models via [UseResource].

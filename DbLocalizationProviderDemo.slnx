@@ -1,15 +1,8 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
-    <File Path="Directory.Build.props" />
-    <File Path="global.json" />
     <File Path="README.md" />
   </Folder>
-  <Folder Name="/src/">
-    <Project Path="src/LocalizationAnalyzers/LocalizationAnalyzers.csproj" />
-    <Project Path="src/LocalizationSample/LocalizationSample.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/LocalizationSample.Tests/LocalizationSample.Tests.csproj" />
-  </Folder>
+  <Project Path="LocalizationAnalyzers/LocalizationAnalyzers.csproj" />
+  <Project Path="LocalizationSample/LocalizationSample.csproj" />
 </Solution>

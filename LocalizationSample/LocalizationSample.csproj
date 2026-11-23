@@ -4,6 +4,9 @@
     <OutputType>Exe</OutputType>
     <!-- LocalizationProvider 9.x targets net10.0 only -->
     <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Off to match typical Optimizely/CMS projects that will copy this code -->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,10 +21,6 @@
     <ProjectReference Include="..\LocalizationAnalyzers\LocalizationAnalyzers.csproj"
                       OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <InternalsVisibleTo Include="LocalizationSample.Tests" />
   </ItemGroup>
 
 </Project>

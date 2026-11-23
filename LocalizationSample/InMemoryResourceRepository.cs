@@ -4,7 +4,7 @@ using DbLocalizationProvider;
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Sync;
 
-namespace LocalizationSample.Storage;
+namespace LocalizationSample;
 
 /// <summary>
 /// Minimal in-memory storage so the sample runs without SQL Server.

@@ -1,6 +1,6 @@
 using DbLocalizationProvider.Abstractions;
 
-namespace LocalizationSample.Resources;
+namespace LocalizationSample;
 
 [LocalizedResource]
 public class CheckoutResources
