@@ -5,12 +5,12 @@ A small, runnable example of how to use [DbLocalizationProvider](https://github.
 
 - **`ILocalizationProvider` only.** No Admin UI, no CMS integration, no SQL Server. Everything runs in memory.
 - **Resource classes** (`[LocalizedResource]`): translations live in code as attributes and are synced to storage on startup.
-- **Lang models** (`[LocalizedModel]`): flat classes of strings for frontend components, filled in one call with
+- **Resource models** (`[LocalizedModel]`): flat classes of strings for frontend components, filled in one call with
   `TranslateExtended<T>()`.
 - **A Roslyn analyzer** (`LOC001`) that warns at build time when a translation for a required culture is missing.
 
 ```bash
-dotnet run --project LocalizationSample   # prints translated strings and lang models
+dotnet run --project LocalizationSample   # prints translated strings and resource models
 ```
 
 Expected build output includes one intentional warning:
@@ -25,12 +25,12 @@ LocalizationSample/Resources/CheckoutResources.cs(23,26): warning LOC001: 'Check
 LocalizationSample/                    console app (net10.0)
   Program.cs                           setup (AddDbLocalizationProvider + sync) and usage
   LocalizationProviderExtensions.cs    TranslateExtended<T>()
-  Resources/                           [LocalizedResource] classes
-    GlobalResources.cs
-    CheckoutResources.cs
-  CartLangModel.cs                     [LocalizedModel] lang models
-  ModalLangModel.cs
   InMemoryResourceRepository.cs        in-memory storage (only needed because we skip SQL Server)
+  Resources/
+    GlobalResources.cs                 [LocalizedResource] classes
+    CheckoutResources.cs
+    CartResourceModel.cs               [LocalizedModel] resource models
+    ModalResourceModel.cs
 LocalizationAnalyzers/                 Roslyn analyzer LOC001 (netstandard2.0)
 .editorconfig                          analyzer configuration
 ```
@@ -82,14 +82,14 @@ public class GlobalResources
 - Group resources by feature (`CheckoutResources`, `ProductResources`, ...) and keep one `GlobalResources` for shared words.
 - `[TranslationForNorwegian("...")]`, `[TranslationForSwedish("...")]` and similar are shorthands for `[TranslationForCulture]`.
 
-## 3. Lang models and `TranslateExtended<T>()`
+## 3. Resource models and `TranslateExtended<T>()`
 
-A lang model holds the strings that one frontend component needs. Mark the class `[LocalizedModel]` and point its
+A resource model holds the strings that one frontend component needs. Mark the class `[LocalizedModel]` and point its
 properties at existing resources:
 
 ```csharp
 [LocalizedModel]
-public class CartLangModel
+public class CartResourceModel
 {
     [UseResource(typeof(CheckoutResources), nameof(CheckoutResources.Item))]
     public string Item { get; set; }
@@ -98,11 +98,11 @@ public class CartLangModel
     [TranslationForCulture("Andra tittade också på", "sv")]
     public string Recommendations { get; set; }
 
-    public ModalLangModel Modal { get; set; }            // nested [LocalizedModel], filled recursively
+    public ModalResourceModel Modal { get; set; }        // nested [LocalizedModel], filled recursively
 }
 
-var lang   = localizationProvider.TranslateExtended<CartLangModel>();                    // CurrentUICulture
-var langSv = localizationProvider.TranslateExtended<CartLangModel>(new CultureInfo("sv"));
+var lang   = localizationProvider.TranslateExtended<CartResourceModel>();   // CurrentUICulture
+var langSv = localizationProvider.TranslateExtended<CartResourceModel>(new CultureInfo("sv"));
 ```
 
 Prefer `[UseResource]` over repeating `[TranslationForCulture]`. One translation can then be reused by many components.
@@ -122,7 +122,7 @@ model has keys under its own type name, so it is not included:
 | `[Display(Name)]` fallback | ✅ | ❌ |
 
 This is still the case in 9.1.0. `Program.cs` prints both, so after a package upgrade you can see whether
-`Modal` is still `null`. If your lang models never nest, the built-in
+`Modal` is still `null`. If your resource models never nest, the built-in
 `Translate<T>()` is enough.
 
 How `TranslateExtended` resolves each property:

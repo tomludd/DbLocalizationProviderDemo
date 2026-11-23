@@ -17,7 +17,7 @@ namespace LocalizationAnalyzers;
 ///
 /// [TranslationForNorwegian], [TranslationForSwedish], [TranslationForEnglish] and [TranslationForFinnish] count too.
 /// Properties are skipped when they have [UseResource] (translation lives on the target),
-/// [Ignore], or are not of type string (nested lang models are checked on their own type).
+/// [Ignore], or are not of type string (nested resource models are checked on their own type).
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class MissingTranslationAnalyzer : DiagnosticAnalyzer

@@ -1,13 +1,12 @@
 using DbLocalizationProvider.Abstractions;
-using LocalizationSample.Resources;
 
-namespace LocalizationSample;
+namespace LocalizationSample.Resources;
 
 /// <summary>
-/// A small "lang model" for a reusable component. Can be nested inside other lang models.
+/// A small "resource model" for a reusable component. Can be nested inside other resource models.
 /// </summary>
 [LocalizedModel]
-public class ModalLangModel
+public class ModalResourceModel
 {
     [UseResource(typeof(GlobalResources), nameof(GlobalResources.Close))]
     public string Close { get; set; }

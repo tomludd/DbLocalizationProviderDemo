@@ -43,13 +43,13 @@ Console.WriteLine($"[no] Close        : {provider.GetString(() => GlobalResource
 Console.WriteLine($"[no] FreeFreight  : {provider.GetString(() => CheckoutResources.FreeFreight, "250 kr")}");
 Console.WriteLine($"[sv] Close        : {provider.GetString(() => GlobalResources.Close, new CultureInfo("sv"))}");
 
-// Whole lang model in one call
-Console.WriteLine("\n[no] TranslateExtended<CartLangModel>():");
-Console.WriteLine(JsonSerializer.Serialize(provider.TranslateExtended<CartLangModel>(), json));
+// Whole resource model in one call
+Console.WriteLine("\n[no] TranslateExtended<CartResourceModel>():");
+Console.WriteLine(JsonSerializer.Serialize(provider.TranslateExtended<CartResourceModel>(), json));
 
-Console.WriteLine("\n[sv] TranslateExtended<CartLangModel>() – EmptyCartMessage has no sv translation, falls back to invariant (= property name). The analyzer warns about this at build time:");
-Console.WriteLine(JsonSerializer.Serialize(provider.TranslateExtended<CartLangModel>(new CultureInfo("sv")), json));
+Console.WriteLine("\n[sv] TranslateExtended<CartResourceModel>() – EmptyCartMessage has no sv translation, falls back to invariant (= property name). The analyzer warns about this at build time:");
+Console.WriteLine(JsonSerializer.Serialize(provider.TranslateExtended<CartResourceModel>(new CultureInfo("sv")), json));
 
 // Built-in alternative – note Modal is null
-Console.WriteLine("\n[no] Built-in Translate<CartLangModel>() – nested Modal is null:");
-Console.WriteLine(JsonSerializer.Serialize(provider.Translate<CartLangModel>(), json));
+Console.WriteLine("\n[no] Built-in Translate<CartResourceModel>() – nested Modal is null:");
+Console.WriteLine(JsonSerializer.Serialize(provider.Translate<CartResourceModel>(), json));
